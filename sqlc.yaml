@@ -1,0 +1,17 @@
+version: 2
+sql:
+  - engine: postgresql
+    queries: 
+      - pkg/sqlc/users.sql
+      - pkg/sqlc/todos.sql
+    schema: db/schema.sql
+    gen:
+      go:
+        package: sqlc
+        out: pkg/sqlc
+        sql_package: pgx/v5
+        overrides:
+          - db_type: uuid
+            go_type:
+              import: github.com/google/uuid
+              type: UUID
